@@ -151,7 +151,13 @@ L.LeafletGeotiff = L.ImageOverlay.extend({
         var g = data[self.options.gBand];
         var b = data[self.options.bBand];
         // map transparency value to alpha channel if transpValue is specified
-        var a = self.options.transpValue?data[self.options.alphaBand].map(function(v){return v==self.options.transpValue?0:255}):data[self.options.alphaBand];
+        var a = self.options.transpValue?data[self.options.alphaBand].map(
+            function(v){
+                // set NaN values transparent
+                if(isNaN(v)) return 0;
+                // set specified transpValue transparent
+                return v==self.options.transpValue?0:255
+            }):data[self.options.alphaBand];
 
         self.raster.data = [r,g,b,a].filter(function (v) {
             return v;
