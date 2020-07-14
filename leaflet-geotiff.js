@@ -145,8 +145,17 @@ L.LeafletGeotiff = L.ImageOverlay.extend({
         var self = this;
         self.options.band = band;
 
-        var image = self.tiff.getImage(self.options.image)
-        var data = image.readRasters({samples: self.options.samples})
+        var image = self.tiff.getImage(self.options.image);
+        var data = null;
+        if(self.options.NaNtoNoData){
+            data = image.readRasters({samples: self.options.samples}).map(function(v){
+                return v.map(function(v2){
+                    return isNaN(v2)?-9999:v2;
+                });
+            });
+        }else{
+            data = image.readRasters({samples: self.options.samples});
+        }
         var r = data[self.options.rBand];
         var g = data[self.options.gBand];
         var b = data[self.options.bBand];
