@@ -38,7 +38,7 @@ Extended parameters for use with `L.LeafletGeotiff.rgb()` renderer:
   - `gBand` - band index to use as G-band
   - `bBand` - band index to use as B-band
   - `alphaBand` - band index to use as alpha-band - NOTE: this can also be used in combination with `transpValue`, then referring to a color band specifying a fixed value to be interpreted as transparent
-  - `transpValue` - for all values equal to `transpValue` in the band `alphaBand`, the newly created alpha channel will be set to 0 (transparent), all other pixel values will result in alpha 255 (opaque)
+  - `transpValue` - for all values equal to `transpValue` in the band `alphaBand`, the newly created alpha channel will be set to 0 (transparent), all other pixel values (except NaN values) will result in alpha 255 (opaque)
 
 #### Renderer
 
